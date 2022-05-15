@@ -36,12 +36,16 @@ app.get('/todos/new', (req, res) => {
   return res.render('new')
 })
 
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .lean()
+    .then((todo) => res.render('detail', { todo }))
+    .catch(error => console.log('error'))
+})
+
 app.post('/todos', (req, res) => {
   const name = req.body.name
-  // return Todo.create({ name })
-  //   .then(() => res.redirect('/'))
-  //   .catch(error => console.log('error'))
-  // 另一種寫法
   const todo = new Todo({ name })
   return todo.save()
     .then(() => res.redirect('/'))
