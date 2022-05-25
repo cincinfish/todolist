@@ -1,7 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
-const port = 3000
+const port = process.env.PORT || 3000
 const methodOverride = require('method-override')
 
 const routes = require('./routes') // 引用路由器
