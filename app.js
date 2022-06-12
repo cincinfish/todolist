@@ -4,9 +4,11 @@ const bodyParser = require('body-parser') // 引用 body-parser
 const port = process.env.PORT || 3000
 const methodOverride = require('method-override')
 const session = require("express-session")
-require('dotenv').config();
 
+require('dotenv').config()
 const routes = require('./routes') // 引用路由器
+// 載入設定檔，要寫在 express-session 以後
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -20,6 +22,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+// 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
+usePassport(app)
 app.use(routes)
 
 app.listen(port, () => {
