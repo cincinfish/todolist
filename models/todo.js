@@ -6,8 +6,14 @@ const todoSchema = new Schema({
     required: true
   },
   isDone: {
-    type:String,
+    type: String,
     default: false
+  },
+  userId: {  // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
 })
 module.exports = mongoose.model('Todo', todoSchema)
